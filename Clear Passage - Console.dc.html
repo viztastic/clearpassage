@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#FBFBFD;color:#1A1A1A;-webkit-font-smoothing:antialiased}
+::selection{background:#3A36E0;color:#fff}
+input,textarea,button{font-family:inherit}
+input:focus,textarea:focus{outline:none}
+.cp-scroll::-webkit-scrollbar{width:10px;height:10px}
+.cp-scroll::-webkit-scrollbar-thumb{background:#D8D6E6;border-radius:6px;border:3px solid #FBFBFD}
+@keyframes cpSpin{to{transform:rotate(360deg)}}
+@keyframes cpFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div style="display:flex;height:100vh;overflow:hidden;background:#FBFBFD;">
+
+  <!-- ============ SIDEBAR (ink) ============ -->
+  <aside style="width:236px;flex-shrink:0;background:#14132E;display:flex;flex-direction:column;padding:18px 14px;color:#fff;">
+    <div style="display:flex;align-items:center;gap:10px;padding:6px 8px 18px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#3A36E0"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#14132E" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-weight:700;letter-spacing:1.4px;font-size:12px;">CLEAR PASSAGE</span>
+    </div>
+
+    <button onClick="{{ onSend }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#3A36E0;color:#fff;border:none;border-radius:9px;padding:10px;font-size:13.5px;font-weight:500;cursor:pointer;margin-bottom:20px;box-shadow:0 2px 10px rgba(58,54,224,0.35);" style-hover="background:#4A46F0;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      Send a pack
+    </button>
+
+    <div style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#56557A;font-weight:600;padding:0 8px 8px;">Engagements</div>
+    <div onClick="{{ onBoard }}" style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:8px;cursor:pointer;margin-bottom:2px;background:{{ navBoardBg }};transition:background .15s;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke="{{ navBoardFg }}" stroke-width="1.8"></rect><rect x="14" y="3" width="7" height="7" rx="1.5" stroke="{{ navBoardFg }}" stroke-width="1.8"></rect><rect x="3" y="14" width="7" height="7" rx="1.5" stroke="{{ navBoardFg }}" stroke-width="1.8"></rect><rect x="14" y="14" width="7" height="7" rx="1.5" stroke="{{ navBoardFg }}" stroke-width="1.8"></rect></svg>
+      <span style="font-size:13.5px;font-weight:500;color:{{ navBoardFg }};flex:1;">Board</span>
+      <span style="font-size:11px;color:#8C8AB8;">{{ engCount }}</span>
+    </div>
+    <div onClick="{{ onReviews }}" style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:8px;cursor:pointer;margin-bottom:2px;background:{{ navRevBg }};transition:background .15s;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="{{ navRevFg }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size:13.5px;font-weight:500;color:{{ navRevFg }};flex:1;">My reviews</span>
+      <span style="font-size:11px;font-weight:600;background:#3A36E0;color:#fff;border-radius:20px;padding:1px 7px;">{{ reviewCount }}</span>
+    </div>
+
+    <div style="font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#56557A;font-weight:600;padding:18px 8px 8px;">Library</div>
+    <div onClick="{{ onStandards }}" style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:8px;cursor:pointer;margin-bottom:2px;background:{{ navStdBg }};transition:background .15s;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="{{ navStdFg }}" stroke-width="1.8"></rect><path d="M9 8h6M9 12h6M9 16h3" stroke="{{ navStdFg }}" stroke-width="1.8" stroke-linecap="round"></path></svg>
+      <span style="font-size:13.5px;font-weight:500;color:{{ navStdFg }};flex:1;">Standards</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:8px;cursor:pointer;margin-bottom:2px;" style-hover="background:rgba(255,255,255,0.05);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="8" r="4" stroke="#8C8AB8" stroke-width="1.8"></circle><path d="M3 20a6 6 0 0 1 10-4.5M15 11h6M18 8v6" stroke="#8C8AB8" stroke-width="1.8" stroke-linecap="round"></path></svg>
+      <span style="font-size:13.5px;font-weight:500;color:#C7C6E8;flex:1;">Vendors</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:8px;cursor:pointer;" style-hover="background:rgba(255,255,255,0.05);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2 6 4-14 2 8h6" stroke="#8C8AB8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="font-size:13.5px;font-weight:500;color:#C7C6E8;flex:1;">Monitoring</span>
+    </div>
+
+    <div style="margin-top:auto;display:flex;align-items:center;gap:10px;padding:12px 8px 4px;border-top:0.5px solid rgba(255,255,255,0.08);">
+      <div style="width:32px;height:32px;border-radius:50%;background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">AO</div>
+      <div style="min-width:0;flex:1;">
+        <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">A. Okafor</div>
+        <div style="font-size:11px;color:#8C8AB8;">Helix Bank · shepherd</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main style="flex:1;display:flex;flex-direction:column;min-width:0;">
+
+    <!-- BOARD -->
+    <sc-if value="{{ isBoard }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;height:100vh;min-height:0;">
+        <header style="padding:22px 32px 0;background:#fff;border-bottom:0.5px solid #E4E3EE;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px;">
+            <div>
+              <h1 style="font-size:22px;font-weight:600;letter-spacing:-0.4px;margin:0 0 3px;">Engagements</h1>
+              <p style="font-size:13.5px;color:#5A5A6E;margin:0;">{{ engCount }} active · automated chase is on · {{ reviewCount }} answers awaiting your review</p>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;">
+              <div style="display:flex;align-items:center;gap:8px;background:#F4F3FA;border:0.5px solid #E4E3EE;border-radius:9px;padding:8px 12px;width:230px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9594A8" stroke-width="1.8"></circle><path d="M20 20l-3.5-3.5" stroke="#9594A8" stroke-width="1.8" stroke-linecap="round"></path></svg>
+                <input value="{{ query }}" onInput="{{ onQuery }}" placeholder="Search vendors" style="border:none;background:transparent;font-size:13.5px;color:#1A1A1A;width:100%;"></input>
+              </div>
+              <button onClick="{{ onSend }}" style="background:#3A36E0;color:#fff;border:none;border-radius:9px;padding:9px 16px;font-size:13.5px;font-weight:500;cursor:pointer;white-space:nowrap;" style-hover="background:#2F2BC4;">Send a pack</button>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <sc-for list="{{ filterChips }}" as="chip" hint-placeholder-count="6">
+              <button onClick="{{ chip.onClick }}" style="display:flex;align-items:center;gap:7px;background:{{ chip.bg }};color:{{ chip.fg }};border:0.5px solid {{ chip.border }};border-bottom:none;border-radius:8px 8px 0 0;padding:9px 14px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;">
+                {{ chip.label }}<span style="font-size:11px;color:{{ chip.countColor }};">{{ chip.count }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </header>
+
+        <div class="cp-scroll" style="flex:1;overflow:auto;padding:0 32px 40px;background:#FBFBFD;">
+          <div style="display:grid;grid-template-columns:minmax(220px,1.7fr) 160px 120px 124px 90px;gap:0;min-width:700px;padding:14px 16px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#9594A8;font-weight:600;border-bottom:0.5px solid #E4E3EE;position:sticky;top:0;background:#FBFBFD;z-index:1;">
+            <div>Vendor</div><div>Status</div><div>Owner</div><div>Review</div><div>Due</div>
+          </div>
+          <sc-for list="{{ rows }}" as="row" hint-placeholder-count="8">
+            <div onClick="{{ row.onClick }}" style="display:grid;grid-template-columns:minmax(220px,1.7fr) 160px 120px 124px 90px;gap:0;align-items:center;min-width:700px;padding:15px 16px;border-bottom:0.5px solid #EDECF3;cursor:pointer;background:#fff;transition:background .12s;" style-hover="background:#F8F8FC;">
+              <div style="display:flex;align-items:center;gap:11px;min-width:0;padding-right:16px;">
+                <div style="width:32px;height:32px;border-radius:8px;background:{{ row.avBg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:{{ row.avFg }};flex-shrink:0;">{{ row.initials }}</div>
+                <div style="min-width:0;">
+                  <div style="font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ row.vendor }}</div>
+                  <div style="font-size:11.5px;color:#9594A8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ row.sub }}</div>
+                </div>
+              </div>
+              <div><span style="display:inline-flex;align-items:center;gap:6px;background:{{ row.statusBg }};color:{{ row.statusFg }};font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;white-space:nowrap;"><span style="width:6px;height:6px;border-radius:50%;background:{{ row.statusDot }};"></span>{{ row.statusLabel }}</span></div>
+              <div style="font-size:12.5px;color:#5A5A6E;">{{ row.owner }}</div>
+              <div style="font-size:12.5px;color:{{ row.pendColor }};font-weight:{{ row.pendWeight }};">{{ row.pendingLabel }}</div>
+              <div style="font-size:12.5px;color:{{ row.dueColor }};font-weight:{{ row.dueWeight }};">{{ row.due }}</div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:60px;text-align:center;color:#9594A8;font-size:14px;">No engagements match this filter.</div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- DETAIL -->
+    <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;height:100vh;min-height:0;">
+        <header style="padding:18px 32px;background:#fff;border-bottom:0.5px solid #E4E3EE;display:flex;align-items:center;justify-content:space-between;gap:20px;">
+          <div style="display:flex;align-items:center;gap:14px;min-width:0;">
+            <button onClick="{{ onBack }}" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;border:0.5px solid #E4E3EE;background:#fff;cursor:pointer;flex-shrink:0;" style-hover="background:#F4F3FA;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#5A5A6E" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+            <div style="width:38px;height:38px;border-radius:9px;background:{{ dAvBg }};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:{{ dAvFg }};flex-shrink:0;">{{ dInitials }}</div>
+            <div style="min-width:0;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <h1 style="font-size:19px;font-weight:600;letter-spacing:-0.3px;margin:0;">{{ dVendor }}</h1>
+                <span style="display:inline-flex;align-items:center;gap:6px;background:{{ dStatusBg }};color:{{ dStatusFg }};font-size:12px;font-weight:600;padding:3px 10px;border-radius:100px;"><span style="width:6px;height:6px;border-radius:50%;background:{{ dStatusDot }};"></span>{{ dStatusLabel }}</span>
+              </div>
+              <div style="font-size:12.5px;color:#9594A8;margin-top:2px;">{{ dCat }} · {{ dStds }} · sent {{ dSent }}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:18px;flex-shrink:0;">
+            <div style="text-align:right;"><div style="font-size:11px;color:#9594A8;">Owner</div><div style="font-size:13px;font-weight:500;">{{ dOwner }}</div></div>
+            <div style="text-align:right;"><div style="font-size:11px;color:#9594A8;">Due</div><div style="font-size:13px;font-weight:500;color:{{ dDueColor }};">{{ dDue }}</div></div>
+          </div>
+        </header>
+
+        <div style="flex:1;display:flex;min-height:0;">
+          <!-- answers -->
+          <div class="cp-scroll" style="flex:1;overflow:auto;padding:24px 28px 48px;min-width:0;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;">
+              <span style="font-size:13px;color:#5A5A6E;">{{ dApproved }} approved</span>
+              <span style="width:3px;height:3px;border-radius:50%;background:#C9C8DA;"></span>
+              <span style="font-size:13px;color:#5A5A6E;">{{ dPending }} awaiting review</span>
+              <sc-if value="{{ dHasObjection }}" hint-placeholder-val="{{ false }}"><span style="width:3px;height:3px;border-radius:50%;background:#C9C8DA;"></span><span style="font-size:13px;color:#993C1D;font-weight:500;">{{ dObjected }} objection open</span></sc-if>
+            </div>
+
+            <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+              <div style="margin-bottom:24px;">
+                <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#9594A8;font-weight:600;margin-bottom:10px;">{{ g.std }}</div>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                  <sc-for list="{{ g.items }}" as="a" hint-placeholder-count="3">
+                    <div style="background:#fff;border:0.5px solid {{ a.cardBorder }};border-radius:12px;padding:16px 18px;">
+                      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;">
+                        <div style="min-width:0;flex:1;">
+                          <div style="display:flex;align-items:center;gap:9px;margin-bottom:5px;">
+                            <span style="font-size:14px;font-weight:600;">{{ a.control }}</span>
+                            <span style="display:inline-flex;align-items:center;gap:5px;background:{{ a.tierBg }};color:{{ a.tierFg }};font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px;"><span style="width:6px;height:6px;border-radius:50%;background:{{ a.tierDot }};"></span>{{ a.tierLabel }}</span>
+                          </div>
+                          <p style="font-size:13.5px;color:#5A5A6E;margin:0;line-height:1.5;">{{ a.answer }}</p>
+                        </div>
+                        <div style="flex-shrink:0;text-align:right;">
+                          <span style="font-size:12px;font-weight:600;color:{{ a.decColor }};display:inline-flex;align-items:center;gap:6px;">{{ a.decLabel }}</span>
+                        </div>
+                      </div>
+
+                      <sc-if value="{{ a.showObjReason }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top:12px;background:#FAECE7;border-radius:9px;padding:11px 13px;display:flex;gap:10px;">
+                          <span style="width:7px;height:7px;border-radius:50%;background:#993C1D;margin-top:5px;flex-shrink:0;"></span>
+                          <p style="font-size:12.5px;color:#993C1D;margin:0;line-height:1.45;"><b style="font-weight:600;">Objection sent to vendor:</b> {{ a.reason }}</p>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ a.objecting }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top:12px;background:#FBF5F2;border:0.5px solid #E9D2C8;border-radius:9px;padding:12px;">
+                          <textarea value="{{ objectionText }}" onInput="{{ onObjText }}" placeholder="Reason for the objection — sent to the vendor, logged with your name." style="width:100%;border:0.5px solid #E4E3EE;border-radius:7px;padding:9px 11px;font-size:13px;color:#1A1A1A;resize:vertical;min-height:58px;background:#fff;"></textarea>
+                          <div style="display:flex;gap:8px;margin-top:9px;justify-content:flex-end;">
+                            <button onClick="{{ onCancelObject }}" style="font-size:12.5px;color:#5A5A6E;background:#fff;border:0.5px solid #E4E3EE;border-radius:7px;padding:7px 13px;cursor:pointer;">Cancel</button>
+                            <button onClick="{{ a.onConfirmObject }}" style="font-size:12.5px;color:#fff;background:#993C1D;border:none;border-radius:7px;padding:7px 13px;cursor:pointer;font-weight:500;">Send objection</button>
+                          </div>
+                        </div>
+                      </sc-if>
+
+                      <sc-if value="{{ a.showActions }}" hint-placeholder-val="{{ false }}">
+                        <div style="margin-top:13px;padding-top:13px;border-top:0.5px solid #EDECF3;display:flex;gap:9px;align-items:center;flex-wrap:wrap;">
+                          <button onClick="{{ a.onApprove }}" style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;color:#0F6E56;background:#E1F5EE;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;" style-hover="background:#CFEEE2;">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#0F6E56" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>Approve
+                          </button>
+                          <button onClick="{{ a.onObject }}" style="font-size:12.5px;font-weight:500;color:#993C1D;background:#fff;border:0.5px solid #E9D2C8;border-radius:8px;padding:8px 14px;cursor:pointer;" style-hover="background:#FBF5F2;">Object</button>
+                          <sc-if value="{{ a.canCheck }}" hint-placeholder-val="{{ false }}">
+                            <button onClick="{{ a.onRunCheck }}" style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;color:#3A36E0;background:#fff;border:0.5px solid #D5D3F2;border-radius:8px;padding:8px 14px;cursor:pointer;margin-left:auto;" style-hover="background:#F4F3FA;">
+                              <sc-if value="{{ a.checking }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" style="animation:cpSpin .8s linear infinite;"><circle cx="12" cy="12" r="9" stroke="rgba(58,54,224,0.3)" stroke-width="3"></circle><path d="M12 3a9 9 0 0 1 9 9" stroke="#3A36E0" stroke-width="3" stroke-linecap="round"></path></svg></sc-if>
+                              {{ a.checkLabel }}
+                            </button>
+                          </sc-if>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- right rail: trail + auditor -->
+          <div class="cp-scroll" style="width:320px;flex-shrink:0;border-left:0.5px solid #E4E3EE;background:#fff;overflow:auto;padding:24px 22px 40px;">
+            <div style="background:#F4F3FA;border-radius:12px;padding:16px;margin-bottom:22px;">
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:10px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#2FA784"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#F4F3FA" stroke-width="2.6" stroke-linecap="round"></line></svg>
+                <span style="font-size:13px;font-weight:600;">Environment auditor</span>
+              </div>
+              <p style="font-size:12.5px;color:#5A5A6E;margin:0 0 12px;line-height:1.5;">{{ dValidatedCount }} of {{ dTotal }} answers validated against {{ dVendor }}'s live environment.</p>
+              <div style="display:flex;gap:7px;flex-wrap:wrap;">
+                <span style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:0.5px solid #E4E3EE;border-radius:8px;padding:6px 10px;font-size:12px;color:#5A5A6E;"><span style="width:7px;height:7px;border-radius:50%;background:#2FA784;"></span>Google</span>
+                <span style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:0.5px solid #E4E3EE;border-radius:8px;padding:6px 10px;font-size:12px;color:#5A5A6E;"><span style="width:7px;height:7px;border-radius:50%;background:#2FA784;"></span>AWS</span>
+                <span style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:0.5px solid #E4E3EE;border-radius:8px;padding:6px 10px;font-size:12px;color:#9594A8;"><span style="width:7px;height:7px;border-radius:50%;background:#D8D6E6;"></span>Microsoft</span>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:0.5px solid #E4E3EE;border-radius:12px;padding:16px;margin-bottom:22px;">
+              <div style="font-size:13px;font-weight:600;margin-bottom:13px;">Trust mix</div>
+              <div style="display:flex;height:8px;border-radius:5px;overflow:hidden;background:#EDECF3;margin-bottom:14px;">
+                <sc-for list="{{ dSegs }}" as="seg" hint-placeholder-count="3"><div style="width:{{ seg.w }};background:{{ seg.color }};"></div></sc-for>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:#5A5A6E;"><span style="width:8px;height:8px;border-radius:50%;background:#0F6E56;"></span>Validated</span><span style="font-size:12.5px;font-weight:600;">{{ dVal }}</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:#5A5A6E;"><span style="width:8px;height:8px;border-radius:50%;background:#534AB7;"></span>Monitored</span><span style="font-size:12.5px;font-weight:600;">{{ dMon }}</span></div>
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:#5A5A6E;"><span style="width:8px;height:8px;border-radius:50%;background:#D9A441;"></span>Attested</span><span style="font-size:12.5px;font-weight:600;">{{ dAtt }}</span></div>
+              </div>
+            </div>
+            <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#9594A8;font-weight:600;margin-bottom:14px;">Activity trail</div>
+            <div style="display:flex;flex-direction:column;">
+              <sc-for list="{{ activity }}" as="ev" hint-placeholder-count="4">
+                <div style="display:flex;gap:12px;padding-bottom:18px;position:relative;">
+                  <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                    <span style="width:9px;height:9px;border-radius:50%;background:{{ ev.dot }};margin-top:3px;z-index:1;"></span>
+                    <span style="width:1.5px;flex:1;background:#E4E3EE;margin-top:3px;"></span>
+                  </div>
+                  <div style="min-width:0;margin-top:-2px;">
+                    <div style="font-size:13px;color:#1A1A1A;line-height:1.35;"><b style="font-weight:600;">{{ ev.who }}</b> {{ ev.action }}</div>
+                    <sc-if value="{{ ev.hasDetail }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#5A5A6E;margin-top:2px;line-height:1.4;">{{ ev.detail }}</div></sc-if>
+                    <div style="font-size:11px;color:#9594A8;margin-top:3px;">{{ ev.time }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- REVIEWS -->
+    <sc-if value="{{ isReviews }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;height:100vh;min-height:0;">
+        <header style="padding:22px 32px;background:#fff;border-bottom:0.5px solid #E4E3EE;">
+          <h1 style="font-size:22px;font-weight:600;letter-spacing:-0.4px;margin:0 0 3px;">My reviews</h1>
+          <p style="font-size:13.5px;color:#5A5A6E;margin:0;">{{ reviewCount }} answers across {{ reviewVendorCount }} vendors are waiting on your decision.</p>
+        </header>
+        <div class="cp-scroll" style="flex:1;overflow:auto;padding:22px 32px 48px;">
+          <sc-for list="{{ queue }}" as="q" hint-placeholder-count="6">
+            <div style="background:#fff;border:0.5px solid #E4E3EE;border-radius:12px;padding:15px 18px;margin-bottom:10px;display:flex;align-items:center;gap:16px;">
+              <div style="width:32px;height:32px;border-radius:7px;background:{{ q.avBg }};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:{{ q.avFg }};flex-shrink:0;">{{ q.initials }}</div>
+              <div style="min-width:0;flex:1;">
+                <div style="display:flex;align-items:center;gap:9px;">
+                  <span style="font-size:13.5px;font-weight:600;">{{ q.control }}</span>
+                  <span style="display:inline-flex;align-items:center;gap:5px;background:{{ q.tierBg }};color:{{ q.tierFg }};font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px;"><span style="width:5px;height:5px;border-radius:50%;background:{{ q.tierDot }};"></span>{{ q.tierLabel }}</span>
+                </div>
+                <div style="font-size:12.5px;color:#9594A8;margin-top:2px;">{{ q.vendor }} · {{ q.std }}</div>
+              </div>
+              <button onClick="{{ q.onOpen }}" style="font-size:12.5px;font-weight:500;color:#3A36E0;background:#fff;border:0.5px solid #D5D3F2;border-radius:8px;padding:8px 14px;cursor:pointer;flex-shrink:0;" style-hover="background:#F4F3FA;">Open engagement</button>
+            </div>
+          </sc-for>
+          <sc-if value="{{ queueEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:60px;text-align:center;color:#9594A8;font-size:14px;">Nothing waiting on you. Every assigned answer is reviewed.</div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- STANDARDS -->
+    <sc-if value="{{ isStandards }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;height:100vh;min-height:0;">
+        <header style="padding:22px 32px;background:#fff;border-bottom:0.5px solid #E4E3EE;">
+          <h1 style="font-size:22px;font-weight:600;letter-spacing:-0.4px;margin:0 0 3px;">Standards</h1>
+          <p style="font-size:13.5px;color:#5A5A6E;margin:0;">Set the bar once. Packs self-assemble from the frameworks you require.</p>
+        </header>
+        <div class="cp-scroll" style="flex:1;overflow:auto;padding:24px 32px 48px;">
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:760px;">
+            <sc-for list="{{ standards }}" as="s" hint-placeholder-count="4">
+              <div style="background:#fff;border:0.5px solid #E4E3EE;border-radius:13px;padding:20px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                  <span style="font-size:15px;font-weight:600;">{{ s.name }}</span>
+                  <span style="font-size:11.5px;color:#0F6E56;background:#E1F5EE;border-radius:100px;padding:3px 9px;font-weight:600;">{{ s.state }}</span>
+                </div>
+                <p style="font-size:13px;color:#5A5A6E;margin:0 0 14px;line-height:1.5;">{{ s.desc }}</p>
+                <div style="display:flex;gap:16px;font-size:12.5px;color:#9594A8;">
+                  <span>{{ s.controls }} controls</span><span>{{ s.usedBy }} vendors</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+  </main>
+
+  <!-- SEND A PACK MODAL -->
+  <sc-if value="{{ sendOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseSend }}" style="position:fixed;inset:0;background:rgba(20,19,46,0.45);z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onClick="{{ stopProp }}" style="background:#fff;border-radius:16px;width:480px;max-width:100%;box-shadow:0 24px 70px rgba(20,19,46,0.32);overflow:hidden;animation:cpFade .18s ease;">
+        <div style="padding:22px 24px 18px;border-bottom:0.5px solid #EDECF3;display:flex;align-items:center;gap:11px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#3A36E0"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"></line></svg>
+          <div><div style="font-size:16px;font-weight:600;letter-spacing:-0.2px;">Send a pack</div><div style="font-size:12.5px;color:#9594A8;margin-top:1px;">At the point of signing — the pack assembles itself.</div></div>
+        </div>
+        <div style="padding:22px 24px;">
+          <div style="font-size:12px;font-weight:600;color:#5A5A6E;margin-bottom:7px;">Vendor</div>
+          <input value="{{ sendVendor }}" onInput="{{ onSendVendor }}" placeholder="e.g. Riverstone Identity" style="width:100%;border:0.5px solid #E4E3EE;border-radius:9px;padding:10px 12px;font-size:14px;color:#1A1A1A;margin-bottom:20px;"></input>
+
+          <div style="font-size:12px;font-weight:600;color:#5A5A6E;margin-bottom:8px;">Category</div>
+          <div style="display:flex;gap:8px;margin-bottom:20px;">
+            <sc-for list="{{ catPills }}" as="c" hint-placeholder-count="2">
+              <button onClick="{{ c.onClick }}" style="flex:1;font-size:13px;font-weight:500;padding:10px;border-radius:9px;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border:0.5px solid {{ c.border }};transition:all .15s;">{{ c.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-size:12px;font-weight:600;color:#5A5A6E;">Standards</span>
+            <span style="font-size:12px;color:#9594A8;">{{ sendCount }} controls in this pack</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <sc-for list="{{ stdToggles }}" as="s" hint-placeholder-count="4">
+              <button onClick="{{ s.onClick }}" style="display:flex;align-items:center;gap:9px;font-size:13px;font-weight:500;padding:10px 12px;border-radius:9px;cursor:pointer;background:{{ s.bg }};color:{{ s.fg }};border:0.5px solid {{ s.border }};transition:all .15s;text-align:left;">
+                <span style="width:16px;height:16px;border-radius:5px;border:1.5px solid {{ s.border }};background:{{ s.boxBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">{{ s.check }}</span>
+                {{ s.name }}
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:16px 24px;border-top:0.5px solid #EDECF3;display:flex;justify-content:flex-end;gap:10px;background:#FBFBFD;">
+          <button onClick="{{ onCloseSend }}" style="font-size:13.5px;color:#5A5A6E;background:#fff;border:0.5px solid #E4E3EE;border-radius:9px;padding:10px 16px;cursor:pointer;">Cancel</button>
+          <button onClick="{{ onSubmitSend }}" style="font-size:13.5px;font-weight:500;color:#fff;background:{{ sendBtnBg }};border:none;border-radius:9px;padding:10px 18px;cursor:{{ sendBtnCursor }};">Send pack</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- TOAST -->
+  <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);background:#14132E;color:#fff;padding:13px 20px;border-radius:11px;font-size:13.5px;box-shadow:0 12px 34px rgba(20,19,46,0.4);z-index:120;display:flex;align-items:center;gap:11px;animation:cpFade .22s ease;">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#2FA784"></circle><path d="M8 12l2.5 2.5L16 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      {{ toast }}
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = this.seed(); }
+
+  seed() {
+    const CONTROLS = [
+      { std: 'SOC 2', control: 'Access control', answer: 'SSO via Okta with MFA enforced; least-privilege roles recertified quarterly.', tier: 'attested' },
+      { std: 'SOC 2', control: 'Encryption at rest', answer: 'AES-256 across all primary and backup data stores.', tier: 'validated' },
+      { std: 'SOC 2', control: 'Encryption in transit', answer: 'TLS 1.2+ enforced end to end; HSTS enabled on all endpoints.', tier: 'validated' },
+      { std: 'SOC 2', control: 'Business continuity', answer: 'RPO 1h / RTO 4h; full disaster-recovery test completed in Q1.', tier: 'attested' },
+      { std: 'ISO 27001', control: 'Risk management', answer: 'Annual ISO 27001-aligned risk assessment; risk register actively maintained.', tier: 'attested' },
+      { std: 'ISO 27001', control: 'Access reviews', answer: 'Quarterly access recertification with documented manager sign-off.', tier: 'attested' },
+      { std: 'NIST CSF', control: 'Incident response', answer: '24-hour breach-notification SLA; runbooks tested twice yearly.', tier: 'attested' },
+      { std: 'NIST CSF', control: 'Vulnerability management', answer: 'Monthly authenticated scans; criticals remediated within 7 days.', tier: 'validated' },
+      { std: 'GDPR', control: 'Sub-processors', answer: 'Sub-processor list published; signed DPAs in place with each.', tier: 'monitored' },
+      { std: 'GDPR', control: 'Data residency', answer: 'EU customer data stored in eu-west-1; no transfers outside the EEA.', tier: 'validated' },
+    ];
+    this.CONTROLS = CONTROLS;
+    const VENDORS = [
+      { name: 'Northwind Analytics', cat: 'Critical vendor', stds: ['SOC 2', 'ISO 27001', 'NIST CSF'] },
+      { name: 'Meridian Payments', cat: 'Critical vendor', stds: ['SOC 2', 'GDPR', 'NIST CSF'] },
+      { name: 'Cobalt Cloud', cat: 'Critical vendor', stds: ['SOC 2', 'ISO 27001'] },
+      { name: 'Aperture Logistics', cat: 'Standard vendor', stds: ['SOC 2', 'GDPR'] },
+      { name: 'Linden Health', cat: 'Critical vendor', stds: ['ISO 27001', 'NIST CSF', 'GDPR'] },
+      { name: 'Vector Security', cat: 'Standard vendor', stds: ['SOC 2', 'ISO 27001'] },
+      { name: 'Tessellate AI', cat: 'Critical vendor', stds: ['SOC 2', 'NIST CSF'] },
+      { name: 'Harbor Data Co.', cat: 'Standard vendor', stds: ['SOC 2', 'GDPR'] },
+      { name: 'Quill HR', cat: 'Standard vendor', stds: ['SOC 2'] },
+      { name: 'Ironvale Storage', cat: 'Critical vendor', stds: ['SOC 2', 'ISO 27001', 'GDPR'] },
+      { name: 'Solstice CRM', cat: 'Standard vendor', stds: ['SOC 2', 'GDPR'] },
+      { name: 'Pallinor Telecom', cat: 'Standard vendor', stds: ['ISO 27001', 'NIST CSF'] },
+    ];
+    const OWNERS = ['A. Okafor', 'M. Chen', 'R. Delgado', 'S. Patel', 'J. Brennan'];
+    const STAT = ['In review', 'Objection open', 'Cleared', 'Awaiting vendor', 'Overdue', 'In review', 'Cleared', 'Awaiting vendor', 'In review', 'Objection open', 'Overdue', 'Cleared'];
+    const SENT = ['Apr 2', 'Apr 8', 'Mar 19', 'Apr 11', 'Mar 28', 'Apr 5', 'Mar 30', 'Apr 9', 'Apr 1', 'Mar 22', 'Apr 6', 'Mar 25'];
+    const LAST = ['Vendor responded · 2h ago', 'Objection raised · yesterday', 'Cleared · 4 days ago', 'Reminder sent · 1h ago', 'Reminder sent · 3 days ago', 'Vendor responded · 5h ago', 'Cleared · 6 days ago', 'Reminder sent · yesterday', 'Vendor responded · 2 days ago', 'Objection raised · 3h ago', 'Reminder sent · 1 day ago', 'Cleared · 5 days ago'];
+    const DUE = ['in 3 days', 'in 1 day', '—', 'in 5 days', '2 days overdue', 'in 4 days', '—', 'in 2 days', 'in 6 days', 'in 1 day', '4 days overdue', '—'];
+    const OBJ = 'Evidence predates the current sub-processor list — please attach the signed DPA for the new CDN provider before we can clear this.';
+    let aid = 1;
+    const engagements = VENDORS.map((v, i) => {
+      const status = STAT[i];
+      const answers = CONTROLS.filter(c => v.stds.includes(c.std)).map((c, j) => {
+        let decision = 'pending', reason = '';
+        if (status === 'Cleared') decision = 'approved';
+        else if (status === 'In review') decision = (j % 3 === 0) ? 'approved' : 'pending';
+        else if (status === 'Objection open') { if (c.control === 'Sub-processors') { decision = 'objected'; reason = OBJ; } else decision = (j % 2 === 0) ? 'approved' : 'pending'; }
+        return { id: 'a' + (aid++), std: c.std, control: c.control, answer: c.answer, tier: c.tier, decision, reason };
+      });
+      const activity = [];
+      activity.push({ who: 'Clear Passage', action: 'sent the pack', detail: v.stds.join(', ') + ' · ' + v.cat.toLowerCase(), time: SENT[i] });
+      if (status !== 'Awaiting vendor' && status !== 'Overdue') activity.push({ who: v.name, action: 'submitted ' + answers.length + ' answers', detail: '', time: SENT[i] });
+      if (status === 'Awaiting vendor' || status === 'Overdue') activity.push({ who: 'Clear Passage', action: 'sent an automated reminder', detail: 'no response yet', time: LAST[i].split('· ')[1] || 'recently' });
+      if (status === 'Objection open') activity.push({ who: OWNERS[i % OWNERS.length], action: 'objected to Sub-processors', detail: OBJ, time: LAST[i].split('· ')[1] || 'recently' });
+      if (status === 'Cleared') activity.push({ who: OWNERS[i % OWNERS.length], action: 'cleared the engagement', detail: 'all answers approved', time: LAST[i].split('· ')[1] || 'recently' });
+      return { id: 'e' + (i + 1), vendor: v.name, cat: v.cat, stds: v.stds, owner: OWNERS[i % OWNERS.length], status, sent: SENT[i], last: LAST[i], due: DUE[i], overdue: DUE[i].indexOf('overdue') >= 0, answers, activity };
+    });
+    return { view: 'board', selectedId: null, filterStatus: 'all', query: '', objectingId: null, objectionText: '', checkingId: null, engagements, sendOpen: false, sendVendor: '', sendCat: 'Critical vendor', sendStds: [], toast: null };
+  }
+
+  // ----- palettes -----
+  statusStyle(s) {
+    const M = {
+      'Cleared': { bg: '#E1F5EE', fg: '#0F6E56', dot: '#0F6E56' },
+      'In review': { bg: '#ECEBFB', fg: '#3A36E0', dot: '#3A36E0' },
+      'Objection open': { bg: '#FAECE7', fg: '#993C1D', dot: '#C2473C' },
+      'Awaiting vendor': { bg: '#FAEEDA', fg: '#854F0B', dot: '#B5760C' },
+      'Overdue': { bg: '#FAE4DE', fg: '#993C1D', dot: '#C2473C' },
+    };
+    return M[s] || M['In review'];
+  }
+  tierStyle(t) {
+    const M = {
+      attested: { bg: '#FAEEDA', fg: '#854F0B', dot: '#B5760C', label: 'Attested' },
+      validated: { bg: '#E1F5EE', fg: '#0F6E56', dot: '#0F6E56', label: 'Validated' },
+      monitored: { bg: '#ECEBFB', fg: '#534AB7', dot: '#534AB7', label: 'Monitored' },
+    };
+    return M[t];
+  }
+  avatar(name) {
+    const colors = [['#ECEBFB', '#3A36E0'], ['#E1F5EE', '#0F6E56'], ['#FAEEDA', '#854F0B'], ['#EDE9FA', '#534AB7'], ['#E7EAF7', '#26215C']];
+    let h = 0; for (let i = 0; i < name.length; i++) h = (h + name.charCodeAt(i)) % colors.length;
+    const c = colors[h];
+    const initials = name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+    return { bg: c[0], fg: c[1], initials };
+  }
+
+  // ----- nav -----
+  go(view) { this.setState({ view, objectingId: null }); }
+  openEng(id) { this.setState({ view: 'detail', selectedId: id, objectingId: null }); }
+  openSend() { this.setState({ sendOpen: true, sendVendor: '', sendCat: 'Critical vendor', sendStds: ['SOC 2', 'ISO 27001', 'NIST CSF'] }); }
+  closeSend() { this.setState({ sendOpen: false }); }
+  setSendCat(c) { this.setState({ sendCat: c, sendStds: c === 'Critical vendor' ? ['SOC 2', 'ISO 27001', 'NIST CSF'] : ['SOC 2', 'GDPR'] }); }
+  toggleStd(s) { const cur = this.state.sendStds || []; this.setState({ sendStds: cur.indexOf(s) >= 0 ? cur.filter(x => x !== s) : [...cur, s] }); }
+  submitSend() {
+    const v = (this.state.sendVendor || '').trim();
+    const order = ['SOC 2', 'ISO 27001', 'NIST CSF', 'GDPR'];
+    const stds = (this.state.sendStds || []).slice().sort((a, b) => order.indexOf(a) - order.indexOf(b));
+    if (!v || stds.length === 0) return;
+    const answers = this.CONTROLS.filter(c => stds.indexOf(c.std) >= 0).map((c, j) => ({ id: 'n' + Date.now() + '_' + j, std: c.std, control: c.control, answer: c.answer, tier: c.tier, decision: 'pending', reason: '' }));
+    const eng = { id: 'e' + Date.now(), vendor: v, cat: this.state.sendCat, stds, owner: 'A. Okafor', status: 'Awaiting vendor', sent: 'just now', last: 'Pack sent · just now', due: 'in 7 days', overdue: false, answers, activity: [{ who: 'Clear Passage', action: 'sent the pack', detail: stds.join(', ') + ' · ' + this.state.sendCat.toLowerCase(), time: 'just now' }] };
+    this.setState({ engagements: [eng, ...this.state.engagements], sendOpen: false, view: 'board', filterStatus: 'all', query: '', toast: 'Pack sent to ' + v + ' \u2014 they\u2019ll be chased automatically.' });
+    clearTimeout(this._tt); this._tt = setTimeout(() => this.setState({ toast: null }), 3800);
+  }
+
+  // ----- mutations -----
+  patch(eid, aid, changes, log) {
+    const engagements = this.state.engagements.map(e => {
+      if (e.id !== eid) return e;
+      const answers = e.answers.map(a => a.id === aid ? { ...a, ...changes } : a);
+      let status = e.status;
+      if (answers.some(a => a.decision === 'objected')) status = 'Objection open';
+      else if (answers.every(a => a.decision === 'approved')) status = 'Cleared';
+      else status = 'In review';
+      const activity = log ? [...e.activity, log] : e.activity;
+      return { ...e, answers, status, activity };
+    });
+    this.setState({ engagements });
+  }
+  approve(eid, aid, control) { this.patch(eid, aid, { decision: 'approved' }, { who: 'A. Okafor', action: 'approved ' + control, detail: '', time: 'just now' }); }
+  startObject(aid) { this.setState({ objectingId: aid, objectionText: '' }); }
+  cancelObject() { this.setState({ objectingId: null, objectionText: '' }); }
+  confirmObject(eid, aid, control) {
+    const reason = (this.state.objectionText || '').trim() || 'Clarification requested before this answer can be cleared.';
+    this.patch(eid, aid, { decision: 'objected', reason }, { who: 'A. Okafor', action: 'objected to ' + control, detail: reason, time: 'just now' });
+    this.setState({ objectingId: null, objectionText: '' });
+  }
+  runCheck(eid, aid, control) {
+    if (this.state.checkingId) return;
+    this.setState({ checkingId: aid });
+    clearTimeout(this._ct);
+    this._ct = setTimeout(() => {
+      this.patch(eid, aid, { tier: 'validated' }, { who: 'Environment auditor', action: 'validated ' + control, detail: 'matched against the live environment', time: 'just now' });
+      this.setState({ checkingId: null });
+    }, 1200);
+  }
+  componentWillUnmount() { clearTimeout(this._ct); clearTimeout(this._tt); }
+
+  renderVals() {
+    const st = this.state, engs = st.engagements;
+    const active = (c) => 'rgba(255,255,255,0.10)';
+
+    // nav
+    const navOn = 'rgba(255,255,255,0.10)', fOn = '#fff', fOff = '#C7C6E8';
+    const inBoard = st.view === 'board' || st.view === 'detail';
+    const reviewCount = engs.reduce((n, e) => n + e.answers.filter(a => a.decision === 'pending').length, 0);
+
+    // board rows
+    const STATUSES = ['In review', 'Awaiting vendor', 'Objection open', 'Overdue', 'Cleared'];
+    let rows = engs;
+    if (st.filterStatus !== 'all') rows = rows.filter(e => e.status === st.filterStatus);
+    if (st.query.trim()) rows = rows.filter(e => e.vendor.toLowerCase().indexOf(st.query.toLowerCase()) >= 0);
+    const rowVals = rows.map(e => {
+      const av = this.avatar(e.vendor);
+      const counts = { attested: 0, validated: 0, monitored: 0 };
+      e.answers.forEach(a => counts[a.tier]++);
+      const total = e.answers.length || 1;
+      const segs = [
+        { w: (counts.validated / total * 100) + '%', color: '#0F6E56' },
+        { w: (counts.monitored / total * 100) + '%', color: '#534AB7' },
+        { w: (counts.attested / total * 100) + '%', color: '#D9A441' },
+      ].filter(s => parseFloat(s.w) > 0);
+      const pending = e.answers.filter(a => a.decision === 'pending').length;
+      const ss = this.statusStyle(e.status);
+      const waiting = e.status === 'Awaiting vendor' || e.status === 'Overdue';
+      return {
+        id: e.id, vendor: e.vendor, cat: e.cat, sub: e.cat + '  ·  ' + e.stds.join(', '), owner: e.owner,
+        initials: av.initials, avBg: av.bg, avFg: av.fg,
+        statusLabel: e.status, statusBg: ss.bg, statusFg: ss.fg, statusDot: ss.dot, segs,
+        pendingLabel: waiting ? 'Not yet in' : (pending > 0 ? pending + ' to review' : 'All reviewed'),
+        pendColor: pending > 0 && !waiting ? '#3A36E0' : '#9594A8', pendWeight: pending > 0 && !waiting ? '600' : '400',
+        due: e.due, dueColor: e.overdue ? '#993C1D' : '#5A5A6E', dueWeight: e.overdue ? '600' : '400',
+        onClick: () => this.openEng(e.id),
+      };
+    });
+
+    const chips = [{ k: 'all', label: 'All' }].concat(STATUSES.map(s => ({ k: s, label: s })));
+    const filterChips = chips.map(c => {
+      const n = c.k === 'all' ? engs.length : engs.filter(e => e.status === c.k).length;
+      const on = st.filterStatus === c.k;
+      return {
+        label: c.label, count: n, onClick: () => this.setState({ filterStatus: c.k }),
+        bg: on ? '#fff' : '#F4F3FA', fg: on ? '#1A1A1A' : '#5A5A6E',
+        border: on ? '#E4E3EE' : 'transparent', countColor: on ? '#3A36E0' : '#9594A8',
+      };
+    });
+
+    // detail
+    let d = {};
+    const eng = engs.find(e => e.id === st.selectedId);
+    if (eng) {
+      const av = this.avatar(eng.vendor);
+      const ss = this.statusStyle(eng.status);
+      const groups = eng.stds.map(std => ({
+        std,
+        items: eng.answers.filter(a => a.std === std).map(a => {
+          const ts = this.tierStyle(a.tier);
+          const isObj = a.decision === 'objected', isApp = a.decision === 'approved', isPend = a.decision === 'pending';
+          const checking = st.checkingId === a.id;
+          return {
+            id: a.id, control: a.control, answer: a.answer, reason: a.reason,
+            tierLabel: ts.label, tierBg: ts.bg, tierFg: ts.fg, tierDot: ts.dot,
+            decLabel: isApp ? '✓ Approved' : isObj ? 'Objection open' : 'Awaiting review',
+            decColor: isApp ? '#0F6E56' : isObj ? '#993C1D' : '#9594A8',
+            cardBorder: isObj ? '#E9D2C8' : isApp ? '#CFEEE2' : '#E4E3EE',
+            showActions: isPend, showObjReason: isObj, objecting: st.objectingId === a.id,
+            canCheck: a.tier === 'attested', checking, checkLabel: checking ? 'Reading environment…' : 'Run auditor check',
+            onApprove: () => this.approve(eng.id, a.id, a.control),
+            onObject: () => this.startObject(a.id),
+            onConfirmObject: () => this.confirmObject(eng.id, a.id, a.control),
+            onRunCheck: () => this.runCheck(eng.id, a.id, a.control),
+          };
+        }),
+      }));
+      const approved = eng.answers.filter(a => a.decision === 'approved').length;
+      const pending = eng.answers.filter(a => a.decision === 'pending').length;
+      const objected = eng.answers.filter(a => a.decision === 'objected').length;
+      const validated = eng.answers.filter(a => a.tier === 'validated').length;
+      const att = eng.answers.filter(a => a.tier === 'attested').length;
+      const mon = eng.answers.filter(a => a.tier === 'monitored').length;
+      const tot = eng.answers.length || 1;
+      const dSegs = [{ w: (validated / tot * 100) + '%', color: '#0F6E56' }, { w: (mon / tot * 100) + '%', color: '#534AB7' }, { w: (att / tot * 100) + '%', color: '#D9A441' }].filter(s => parseFloat(s.w) > 0);
+      const activity = [...eng.activity].reverse().map((ev, i) => ({
+        who: ev.who, action: ev.action, detail: ev.detail, hasDetail: !!ev.detail, time: ev.time,
+        dot: i === 0 ? '#3A36E0' : '#C9C8DA',
+      }));
+      d = {
+        dVendor: eng.vendor, dCat: eng.cat, dStds: eng.stds.join(' · '), dSent: eng.sent, dOwner: eng.owner,
+        dDue: eng.due, dDueColor: eng.overdue ? '#993C1D' : '#1A1A1A',
+        dInitials: av.initials, dAvBg: av.bg, dAvFg: av.fg,
+        dStatusLabel: eng.status, dStatusBg: ss.bg, dStatusFg: ss.fg, dStatusDot: ss.dot,
+        groups, dApproved: approved, dPending: pending, dObjected: objected, dHasObjection: objected > 0,
+        dValidatedCount: validated, dTotal: eng.answers.length, activity,
+        dSegs, dVal: validated, dMon: mon, dAtt: att,
+      };
+    }
+
+    // reviews queue
+    const queue = [];
+    engs.forEach(e => e.answers.forEach(a => {
+      if (a.decision === 'pending') {
+        const av = this.avatar(e.vendor), ts = this.tierStyle(a.tier);
+        queue.push({ control: a.control, vendor: e.vendor, std: a.std, initials: av.initials, avBg: av.bg, avFg: av.fg, tierLabel: ts.label, tierBg: ts.bg, tierFg: ts.fg, tierDot: ts.dot, onOpen: () => this.openEng(e.id) });
+      }
+    }));
+    const reviewVendorCount = new Set(engs.filter(e => e.answers.some(a => a.decision === 'pending')).map(e => e.id)).size;
+
+    // send-a-pack modal
+    const CCOUNT = { 'SOC 2': 4, 'ISO 27001': 2, 'NIST CSF': 2, 'GDPR': 2 };
+    const stdToggles = ['SOC 2', 'ISO 27001', 'NIST CSF', 'GDPR'].map(s => {
+      const on = (st.sendStds || []).indexOf(s) >= 0;
+      return { name: s, on, onClick: () => this.toggleStd(s), bg: on ? '#ECEBFB' : '#fff', border: on ? '#3A36E0' : '#E4E3EE', fg: on ? '#3A36E0' : '#5A5A6E', boxBg: on ? '#3A36E0' : 'transparent', check: on ? '✓' : '' };
+    });
+    const catPills = ['Critical vendor', 'Standard vendor'].map(c => {
+      const on = st.sendCat === c;
+      return { label: c, on, onClick: () => this.setSendCat(c), bg: on ? '#14132E' : '#fff', fg: on ? '#fff' : '#5A5A6E', border: on ? '#14132E' : '#E4E3EE' };
+    });
+    const sendCount = (st.sendStds || []).reduce((n, s) => n + (CCOUNT[s] || 0), 0);
+    const sendValid = !!(st.sendVendor && st.sendVendor.trim()) && (st.sendStds || []).length > 0;
+
+    // standards
+    const stdDefs = [
+      { name: 'SOC 2', desc: 'Security, availability and confidentiality controls. The default for most SaaS vendors.', controls: 4 },
+      { name: 'ISO 27001', desc: 'Information-security management system controls for regulated and enterprise vendors.', controls: 2 },
+      { name: 'NIST CSF', desc: 'Identify, protect, detect, respond, recover. Used for critical infrastructure vendors.', controls: 2 },
+      { name: 'GDPR', desc: 'Data-protection and residency obligations for any vendor handling EU personal data.', controls: 2 },
+    ];
+    const standards = stdDefs.map(s => ({ name: s.name, desc: s.desc, controls: s.controls, state: 'Active', usedBy: engs.filter(e => e.stds.indexOf(s.name) >= 0).length }));
+
+    return {
+      isBoard: st.view === 'board', isDetail: st.view === 'detail', isReviews: st.view === 'reviews', isStandards: st.view === 'standards',
+      onBoard: () => this.go('board'), onReviews: () => this.go('reviews'), onStandards: () => this.go('standards'), onSend: () => this.openSend(), onBack: () => this.go('board'),
+      sendOpen: st.sendOpen, sendVendor: st.sendVendor, onSendVendor: (e) => this.setState({ sendVendor: e.target.value }),
+      catPills, stdToggles, sendCount, sendValid, sendBtnBg: sendValid ? '#3A36E0' : '#C9C8DA', sendBtnCursor: sendValid ? 'pointer' : 'not-allowed',
+      onCloseSend: () => this.closeSend(), onSubmitSend: () => this.submitSend(), stopProp: (e) => e.stopPropagation(),
+      toast: st.toast, showToast: !!st.toast,
+      navBoardBg: inBoard ? navOn : 'transparent', navBoardFg: inBoard ? fOn : fOff,
+      navRevBg: st.view === 'reviews' ? navOn : 'transparent', navRevFg: st.view === 'reviews' ? fOn : fOff,
+      navStdBg: st.view === 'standards' ? navOn : 'transparent', navStdFg: st.view === 'standards' ? fOn : fOff,
+      engCount: engs.length, reviewCount, reviewVendorCount,
+      rows: rowVals, noRows: rowVals.length === 0, filterChips, query: st.query, onQuery: (e) => this.setState({ query: e.target.value }),
+      objectionText: st.objectionText, onObjText: (e) => this.setState({ objectionText: e.target.value }), onCancelObject: () => this.cancelObject(),
+      queue, queueEmpty: queue.length === 0, standards,
+      ...d,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#FBFBFD;color:#1A1A1A;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:#3A36E0;color:#fff}
+@keyframes cpDraw{0%{stroke-dashoffset:270}55%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
+@keyframes cpRipple{0%{transform:scale(1);opacity:.5}100%{transform:scale(2.5);opacity:0}}
+@keyframes cpSpin{to{transform:rotate(360deg)}}
+@keyframes cpFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes cpNodePulse{0%,16%,100%{transform:scale(1);box-shadow:0 1px 3px rgba(20,19,46,0.06)}8%{transform:scale(1.1);box-shadow:0 0 0 6px rgba(58,54,224,0.09),0 1px 3px rgba(20,19,46,0.06)}}
+</style>
+</helmet>
+
+<div style="background:#FBFBFD;overflow-x:hidden;">
+
+<nav style="position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(12px);background:{{ scrolledBg }};border-bottom:0.5px solid rgba(228,227,238,0.7);">
+  <div style="max-width:1180px;margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+    <div style="display:flex;align-items:center;gap:11px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#3A36E0"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#FBFBFD" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-weight:700;letter-spacing:1.6px;font-size:13px;color:#14132E;">CLEAR PASSAGE</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:28px;">
+      <a href="#how" style="font-size:14px;color:#5A5A6E;text-decoration:none;" style-hover="color:#14132E;">How it works</a>
+      <a href="#auditor" style="font-size:14px;color:#5A5A6E;text-decoration:none;" style-hover="color:#14132E;">The auditor</a>
+      <a href="#pricing" style="font-size:14px;color:#5A5A6E;text-decoration:none;" style-hover="color:#14132E;">Pricing</a>
+      <a href="#" style="font-size:14px;color:#14132E;text-decoration:none;font-weight:500;">Sign in</a>
+      <a href="#" style="font-size:14px;font-weight:500;color:#fff;background:#3A36E0;padding:9px 17px;border-radius:9px;text-decoration:none;box-shadow:0 1px 2px rgba(20,19,46,0.18);" style-hover="background:#2F2BC4;">Start sending</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section data-screen-label="Hero" style="background:#14132E;color:#fff;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-120px;right:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(58,54,224,0.28),transparent 62%);pointer-events:none;"></div>
+  <div style="max-width:1180px;margin:0 auto;padding:104px 28px 96px;display:flex;align-items:center;gap:56px;flex-wrap:wrap;position:relative;">
+    <div style="flex:1 1 480px;min-width:300px;">
+      <div style="display:inline-flex;align-items:center;gap:9px;padding:6px 13px 6px 9px;border:0.5px solid rgba(255,255,255,0.16);border-radius:100px;margin-bottom:26px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#7F77DD"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#14132E" stroke-width="2.6" stroke-linecap="round"></line></svg>
+        <span style="font-size:12.5px;letter-spacing:.02em;color:#C7C6E8;">Continuous vendor due diligence</span>
+      </div>
+      <h1 style="font-size:50px;line-height:1.06;font-weight:600;letter-spacing:-1.4px;margin:0 0 22px;max-width:13ch;">Vendor security checks that get faster every time.</h1>
+      <p style="font-size:18.5px;line-height:1.5;color:#C7C6E8;max-width:54ch;margin:0 0 34px;font-weight:400;">One engine sends the right pack in seconds, holds the engagement through every objection, and proves each answer against the vendor's real cloud environment.</p>
+      <div style="display:flex;gap:13px;flex-wrap:wrap;align-items:center;">
+        <a href="#" style="font-size:15.5px;font-weight:500;color:#fff;background:#3A36E0;padding:14px 26px;border-radius:11px;text-decoration:none;box-shadow:0 6px 22px rgba(58,54,224,0.4);" style-hover="background:#2F2BC4;transform:translateY(-1px);">Start sending</a>
+        <a href="#how" style="font-size:15.5px;font-weight:500;color:#fff;background:transparent;border:0.5px solid rgba(255,255,255,0.28);padding:14px 24px;border-radius:11px;text-decoration:none;" style-hover="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.5);">See how it works</a>
+      </div>
+      <div style="display:flex;gap:22px;margin-top:42px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;"><span style="width:8px;height:8px;border-radius:50%;background:#D9A441;"></span><span style="font-size:13px;color:#8C8AB8;">Attested</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="width:8px;height:8px;border-radius:50%;background:#2FA784;"></span><span style="font-size:13px;color:#8C8AB8;">Validated</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><span style="width:8px;height:8px;border-radius:50%;background:#7F77DD;"></span><span style="font-size:13px;color:#8C8AB8;">Monitored</span></div>
+        <span style="font-size:13px;color:#56557A;align-self:center;">— three tiers of truth, stated honestly</span>
+      </div>
+    </div>
+    <div style="flex:0 1 360px;min-width:280px;display:flex;justify-content:center;position:relative;">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle,rgba(58,54,224,0.22),transparent 60%);filter:blur(8px);"></div>
+      <svg width="340" height="340" viewBox="0 0 340 340" fill="none" style="position:relative;animation:cpFloat 7s ease-in-out infinite;overflow:visible;">
+        <circle cx="170" cy="170" r="162" stroke="rgba(255,255,255,0.06)" stroke-width="1"></circle>
+        <circle cx="170" cy="170" r="118" stroke="rgba(255,255,255,0.09)" stroke-width="1"></circle>
+        <circle cx="170" cy="170" r="72" stroke="rgba(255,255,255,0.13)" stroke-width="1"></circle>
+        <!-- the passage corridor -->
+        <line x1="28" y1="289" x2="312" y2="51" stroke="#3A36E0" stroke-width="1.2" opacity="0.18"></line>
+        <!-- the gate -->
+        <circle cx="170" cy="170" r="32" fill="none" stroke="rgba(58,54,224,0.5)" style="transform-origin:170px 170px;animation:cpRipple 3.4s ease-out infinite;"></circle>
+        <circle cx="170" cy="170" r="32" fill="#3A36E0"></circle>
+        <!-- the narrow passage cut (the mark) -->
+        <line x1="147" y1="189" x2="193" y2="151" stroke="#14132E" stroke-width="3.4" stroke-linecap="round"></line>
+        <!-- the vendor, threading the passage: attested -> validated -->
+        <circle r="5.5" fill="#D9A441" opacity="0" style="filter:drop-shadow(0 0 7px rgba(255,255,255,0.5));">
+          <animateMotion dur="5.2s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.5;0.5;1" keyTimes="0;0.44;0.6;1" path="M28,289 L312,51"></animateMotion>
+          <animate attributeName="fill" dur="5.2s" repeatCount="indefinite" values="#D9A441;#D9A441;#2FA784;#2FA784" keyTimes="0;0.5;0.62;1"></animate>
+          <animate attributeName="opacity" dur="5.2s" repeatCount="indefinite" values="0;1;1;1;0" keyTimes="0;0.1;0.5;0.9;1"></animate>
+          <animate attributeName="r" dur="5.2s" repeatCount="indefinite" values="5.5;5.5;7.5;5.5;5.5" keyTimes="0;0.44;0.52;0.6;1"></animate>
+        </circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM STRIP ============ -->
+<section data-screen-label="Problem" style="background:#FBFBFD;border-bottom:0.5px solid #E4E3EE;">
+  <div style="max-width:1180px;margin:0 auto;padding:84px 28px;">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#993C1D"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#FBFBFD" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#993C1D;">The reality today</span>
+    </div>
+    <h2 style="font-size:30px;font-weight:600;letter-spacing:-0.6px;margin:0 0 10px;max-width:24ch;">Due diligence is a one-off scramble — and it's wrong by morning.</h2>
+    <p style="font-size:16px;color:#5A5A6E;max-width:62ch;margin:0 0 38px;">Questionnaires get sent months late, answers nobody verifies, a snapshot that's stale the day after it's filed.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div style="background:#fff;border:0.5px solid #E4E3EE;border-radius:14px;padding:26px 24px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;"><span style="width:7px;height:7px;border-radius:2px;background:#993C1D;"></span><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#9594A8;font-weight:600;">Late</span></div>
+        <div style="font-size:21px;font-weight:600;letter-spacing:-0.3px;margin-bottom:8px;">Sent months after signing</div>
+        <p style="font-size:14.5px;color:#5A5A6E;margin:0;line-height:1.5;">By the time the questionnaire goes out, the contract is signed and the leverage is gone.</p>
+      </div>
+      <div style="background:#fff;border:0.5px solid #E4E3EE;border-radius:14px;padding:26px 24px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;"><span style="width:7px;height:7px;border-radius:2px;background:#993C1D;"></span><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#9594A8;font-weight:600;">Unverified</span></div>
+        <div style="font-size:21px;font-weight:600;letter-spacing:-0.3px;margin-bottom:8px;">Taken on trust, checked by no one</div>
+        <p style="font-size:14.5px;color:#5A5A6E;margin:0;line-height:1.5;">A vendor writes "yes, we encrypt at rest." Nobody confirms it against anything real.</p>
+      </div>
+      <div style="background:#fff;border:0.5px solid #E4E3EE;border-radius:14px;padding:26px 24px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;"><span style="width:7px;height:7px;border-radius:2px;background:#993C1D;"></span><span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#9594A8;font-weight:600;">Stale</span></div>
+        <div style="font-size:21px;font-weight:600;letter-spacing:-0.3px;margin-bottom:8px;">A snapshot, wrong by morning</div>
+        <p style="font-size:14.5px;color:#5A5A6E;margin:0;line-height:1.5;">Point-in-time by design. The environment drifts the day after the answer is filed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS — THE LOOP ============ -->
+<section id="how" data-screen-label="How it works" style="background:#fff;border-bottom:0.5px solid #E4E3EE;">
+  <div style="max-width:1180px;margin:0 auto;padding:92px 28px;">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#3A36E0"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#3A36E0;">How it works</span>
+    </div>
+    <h2 style="font-size:30px;font-weight:600;letter-spacing:-0.6px;margin:0 0 10px;max-width:26ch;">One engagement, handled end to end.</h2>
+    <p style="font-size:16px;color:#5A5A6E;max-width:60ch;margin:0 0 14px;">Every vendor follows the same clear path, and each step has a clear owner — so nothing stalls in an inbox. Tap any step to follow it through.</p>
+    <p style="font-size:13.5px;color:#9594A8;margin:0 0 48px;">Run the whole path yourself, or share the steps across your team — it fits the way you already work.</p>
+
+    <div style="position:relative;margin-bottom:34px;">
+      <div style="position:absolute;top:26px;left:10%;right:10%;height:2px;background:#E4E3EE;z-index:0;"></div>
+      <div style="position:absolute;top:26px;left:10%;height:2px;background:{{ progressColor }};width:{{ progressFill }};transition:width .45s cubic-bezier(.4,0,.2,1),background .3s;z-index:1;"></div>
+      <div style="display:flex;position:relative;z-index:2;">
+        <sc-for list="{{ nodes }}" as="node" hint-placeholder-count="5">
+          <div onClick="{{ node.onClick }}" style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:13px;cursor:pointer;">
+            <div style="width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;border:1.5px solid {{ node.nodeBorder }};background:{{ node.nodeBg }};color:{{ node.nodeColor }};transition:all .35s;box-shadow:0 1px 3px rgba(20,19,46,0.06);animation:cpNodePulse 5s ease-in-out infinite;animation-delay:{{ node.pulseDelay }};">{{ node.n }}</div>
+            <div style="text-align:center;padding:0 4px;">
+              <div style="font-size:14.5px;font-weight:600;color:{{ node.labelColor }};transition:color .3s;">{{ node.name }}</div>
+              <div style="font-size:12px;color:#9594A8;margin-top:3px;">{{ node.short }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="background:#F4F3FA;border-radius:16px;border-left:3px solid {{ activeColor }};padding:28px 30px;transition:border-color .3s;display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;">
+      <div style="flex:1 1 460px;min-width:280px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:{{ activeColor }};">Phase {{ activeN }}</span>
+          <span style="width:4px;height:4px;border-radius:50%;background:#C9C8DA;"></span>
+          <span style="font-size:13px;color:#9594A8;">held by the {{ activeHeld }}</span>
+        </div>
+        <h3 style="font-size:23px;font-weight:600;letter-spacing:-0.3px;margin:0 0 8px;">{{ activeName }}</h3>
+        <p style="font-size:15.5px;color:#5A5A6E;margin:0;line-height:1.55;max-width:62ch;">{{ activeDetail }}</p>
+      </div>
+      <div style="flex:0 1 240px;min-width:200px;background:#fff;border:0.5px solid #E4E3EE;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#9594A8;font-weight:600;margin-bottom:9px;">How it feels</div>
+        <p style="font-size:15px;font-style:italic;color:#1A1A1A;margin:0;line-height:1.45;">{{ activeFeel }}</p>
+      </div>
+    </div>
+
+    <div style="margin-top:26px;display:flex;gap:14px;align-items:center;background:#FAEEDA;border-radius:12px;padding:15px 20px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;"><path d="M12 4 V11 M12 11 a6 6 0 1 1 -4.2 1.7" stroke="#854F0B" stroke-width="1.8" fill="none" stroke-linecap="round"></path></svg>
+      <p style="font-size:14px;color:#854F0B;margin:0;line-height:1.45;"><b style="font-weight:600;">The objection loop</b> — when a reviewer objects, only that item bounces back to the vendor, never the whole pack. The shepherd holds it across every turn. This loop is what a flat questionnaire tool misses.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE AUDITOR (hero feature, on ink) ============ -->
+<section id="auditor" data-screen-label="Environment auditor" style="background:#14132E;color:#fff;position:relative;overflow:hidden;">
+  <div style="position:absolute;bottom:-160px;left:-100px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(15,110,86,0.3),transparent 62%);pointer-events:none;"></div>
+  <div style="max-width:1180px;margin:0 auto;padding:96px 28px;position:relative;">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#2FA784"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#14132E" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#2FA784;">The differentiator · environment auditor</span>
+    </div>
+    <h2 style="font-size:38px;font-weight:600;letter-spacing:-1px;margin:0 0 16px;max-width:18ch;">We don't take their word for it.</h2>
+    <p style="font-size:18px;color:#C7C6E8;max-width:60ch;margin:0 0 52px;line-height:1.5;">A read-only check against the vendor's real Google, AWS, or Microsoft environment promotes a claim from <span style="color:#D9A441;">attested</span> to <span style="color:#2FA784;">validated</span> — against reality, not a PDF.</p>
+
+    <!-- 3-point flow rail -->
+    <div style="max-width:560px;margin:0 0 32px;position:relative;">
+      <div style="position:absolute;top:18px;left:16.6%;right:16.6%;height:2px;background:rgba(255,255,255,0.12);z-index:0;"></div>
+      <div style="position:absolute;top:18px;left:16.6%;height:2px;background:#2FA784;width:{{ auditProgress }};transition:width .5s cubic-bezier(.4,0,.2,1);z-index:1;"></div>
+      <div style="display:flex;position:relative;z-index:2;">
+        <sc-for list="{{ auditStepNodes }}" as="s" hint-placeholder-count="3">
+          <div onClick="{{ s.onClick }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;">
+            <div style="width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;background:{{ s.dotBg }};border:1.5px solid {{ s.dotBorder }};color:{{ s.dotColor }};transition:all .35s;animation:cpNodePulse 5s ease-in-out infinite;animation-delay:{{ s.pulseDelay }};">{{ s.num }}</div>
+            <span style="font-size:13px;font-weight:500;color:{{ s.labelColor }};transition:color .3s;">{{ s.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- focal stage -->
+    <div style="position:relative;min-height:284px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.1);border-radius:20px;overflow:hidden;">
+      <!-- panel 0: the claim -->
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:44px 32px;opacity:{{ panelOp0 }};pointer-events:{{ panelPe0 }};transition:opacity .5s ease;">
+        <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8C8AB8;font-weight:600;margin-bottom:22px;">The claim · what the vendor told us</span>
+        <p style="font-size:26px;font-weight:500;letter-spacing:-0.4px;margin:0 0 22px;line-height:1.3;color:#fff;max-width:18ch;">"All customer data is encrypted at rest."</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:#FAEEDA;padding:6px 14px;border-radius:100px;"><span style="width:8px;height:8px;border-radius:50%;background:#854F0B;"></span><span style="font-size:13px;font-weight:600;color:#854F0B;">Attested</span></div>
+        <p style="font-size:13.5px;color:#56557A;margin:16px 0 0;">On the record — but no one has proven it.</p>
+      </div>
+      <!-- panel 1: the check -->
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:44px 32px;opacity:{{ panelOp1 }};pointer-events:{{ panelPe1 }};transition:opacity .5s ease;">
+        <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9F98E8;font-weight:600;margin-bottom:24px;">The check · reading the live environment</span>
+        <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;justify-content:center;">
+          <sc-for list="{{ connList }}" as="c" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:8px;background:{{ c.bg }};border:0.5px solid {{ c.border }};border-radius:10px;padding:10px 17px;transition:all .4s;"><span style="width:8px;height:8px;border-radius:50%;background:{{ c.dot }};transition:all .4s;"></span><span style="font-size:14px;font-weight:500;color:{{ c.color }};transition:color .4s;">{{ c.name }}</span></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;color:#9F98E8;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="animation:cpSpin .8s linear infinite;"><circle cx="12" cy="12" r="9" stroke="rgba(159,152,232,0.3)" stroke-width="3"></circle><path d="M12 3 a9 9 0 0 1 9 9" stroke="#9F98E8" stroke-width="3" stroke-linecap="round"></path></svg>
+          <span style="font-size:14px;">Read-only · ephemeral access · nothing stored</span>
+        </div>
+      </div>
+      <!-- panel 2: the result -->
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:44px 32px;opacity:{{ panelOp2 }};pointer-events:{{ panelPe2 }};transition:opacity .5s ease;">
+        <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#6FD3B5;font-weight:600;margin-bottom:22px;">The result · checked against reality</span>
+        <p style="font-size:26px;font-weight:500;letter-spacing:-0.4px;margin:0 0 22px;line-height:1.3;color:#fff;max-width:18ch;">"All customer data is encrypted at rest."</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;background:#E1F5EE;padding:6px 14px;border-radius:100px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0F6E56" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="font-size:13px;font-weight:600;color:#0F6E56;">Validated</span></div>
+        <p style="font-size:13.5px;color:#6FD3B5;margin:16px 0 0;">Proven against their real environment — and monitored from here on.</p>
+      </div>
+    </div>
+
+    <!-- controls -->
+    <div style="display:flex;gap:16px;align-items:center;margin-top:26px;">
+      <button onClick="{{ onRun }}" style="display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:500;color:#fff;background:#3A36E0;border:none;padding:13px 24px;border-radius:11px;cursor:pointer;font-family:inherit;box-shadow:0 6px 22px rgba(58,54,224,0.32);" style-hover="background:#2F2BC4;">
+        <sc-if value="{{ isValidating }}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="animation:cpSpin .8s linear infinite;"><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.3)" stroke-width="3"></circle><path d="M12 3 a9 9 0 0 1 9 9" stroke="#fff" stroke-width="3" stroke-linecap="round"></path></svg></sc-if>
+        {{ runLabel }}
+      </button>
+      <sc-if value="{{ showStartOver }}" hint-placeholder-val="{{ false }}"><button onClick="{{ onReset }}" style="font-size:14px;color:#9F98E8;background:transparent;border:none;cursor:pointer;font-family:inherit;text-decoration:underline;">Start over</button></sc-if>
+    </div>
+
+    <!-- honesty guardrail -->
+    <div style="margin-top:30px;display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.12);border-radius:14px;padding:22px 26px;max-width:860px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="7" fill="#7F77DD"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#14132E" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <p style="font-size:15px;color:#C7C6E8;margin:0;line-height:1.55;"><b style="color:#fff;font-weight:600;">We say validated — never tamper-evident.</b> The check proves an answer matches the vendor's real environment. It doesn't claim more than that. Honesty with a skeptical buyer is the point, not the fine print.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THREE-TIER LADDER ============ -->
+<section data-screen-label="Three tiers" style="background:#FBFBFD;border-bottom:0.5px solid #E4E3EE;">
+  <div style="max-width:1180px;margin:0 auto;padding:84px 28px;">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#3A36E0"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#FBFBFD" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#3A36E0;">Three tiers of truth</span>
+    </div>
+    <h2 style="font-size:30px;font-weight:600;letter-spacing:-0.6px;margin:0 0 38px;max-width:30ch;">Every answer carries how much we actually know about it.</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div style="background:#fff;border:0.5px solid #E4E3EE;border-top:3px solid #D9A441;border-radius:14px;padding:26px 24px;">
+        <div style="display:inline-flex;align-items:center;gap:7px;background:#FAEEDA;padding:5px 12px;border-radius:100px;margin-bottom:16px;"><span style="width:7px;height:7px;border-radius:50%;background:#854F0B;"></span><span style="font-size:12.5px;font-weight:600;color:#854F0B;">Attested</span></div>
+        <p style="font-size:15.5px;color:#1A1A1A;margin:0;line-height:1.5;">The vendor stated it. A claim, on the record — but unproven.</p>
+      </div>
+      <div style="background:#fff;border:0.5px solid #E4E3EE;border-top:3px solid #0F6E56;border-radius:14px;padding:26px 24px;">
+        <div style="display:inline-flex;align-items:center;gap:7px;background:#E1F5EE;padding:5px 12px;border-radius:100px;margin-bottom:16px;"><span style="width:7px;height:7px;border-radius:50%;background:#0F6E56;"></span><span style="font-size:12.5px;font-weight:600;color:#0F6E56;">Validated</span></div>
+        <p style="font-size:15.5px;color:#1A1A1A;margin:0;line-height:1.5;">The auditor checked it against the vendor's real environment.</p>
+      </div>
+      <div style="background:#fff;border:0.5px solid #E4E3EE;border-top:3px solid #7F77DD;border-radius:14px;padding:26px 24px;">
+        <div style="display:inline-flex;align-items:center;gap:7px;background:#ECEBFB;padding:5px 12px;border-radius:100px;margin-bottom:16px;"><span style="width:7px;height:7px;border-radius:50%;background:#534AB7;"></span><span style="font-size:12.5px;font-weight:600;color:#534AB7;">Monitored</span></div>
+        <p style="font-size:15.5px;color:#1A1A1A;margin:0;line-height:1.5;">Re-checked over time. Drift is flagged the moment it appears.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NETWORK EFFECT ============ -->
+<section id="network" data-screen-label="Network effect" style="background:#F4FAF7;border-bottom:0.5px solid #DBEDE5;">
+  <div style="max-width:1180px;margin:0 auto;padding:92px 28px;">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#0F6E56"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#F4FAF7" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#0F6E56;">The network effect</span>
+    </div>
+    <h2 style="font-size:30px;font-weight:600;letter-spacing:-0.6px;margin:0 0 10px;max-width:28ch;">Every validated answer travels to the vendor's next customer.</h2>
+    <p style="font-size:16px;color:#3F6357;max-width:60ch;margin:0 0 32px;">Banked effort compounds. The whole system gets faster the more it's used.</p>
+
+    <div style="display:inline-flex;background:#fff;border:0.5px solid #DBEDE5;border-radius:12px;padding:4px;gap:4px;margin-bottom:28px;">
+      <button onClick="{{ onFirst }}" style="font-size:14px;font-weight:500;padding:9px 18px;border-radius:9px;border:none;cursor:pointer;font-family:inherit;background:{{ firstBg }};color:{{ firstColor }};transition:all .25s;">First-time vendor</button>
+      <button onClick="{{ onReturning }}" style="font-size:14px;font-weight:500;padding:9px 18px;border-radius:9px;border:none;cursor:pointer;font-family:inherit;background:{{ retBg }};color:{{ retColor }};transition:all .25s;">Returning vendor</button>
+    </div>
+
+    <div style="background:#fff;border:0.5px solid #DBEDE5;border-radius:18px;padding:30px 32px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:22px;">
+        <p style="font-size:17px;font-weight:500;margin:0;color:#1A1A1A;max-width:46ch;">{{ netHeadline }}</p>
+        <div style="display:flex;align-items:baseline;gap:7px;"><span style="font-size:28px;font-weight:600;color:#0F6E56;letter-spacing:-0.5px;">{{ doneN }}</span><span style="font-size:14px;color:#9594A8;">of 12 already answered</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+        <sc-for list="{{ pack }}" as="cell" hint-placeholder-count="12">
+          <div style="display:flex;align-items:center;gap:9px;background:{{ cell.bg }};border:0.5px solid {{ cell.border }};border-radius:10px;padding:12px 13px;transition:all .35s;">
+            <span style="width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:1.5px solid {{ cell.markColor }};color:{{ cell.markColor }};flex-shrink:0;">{{ cell.mark }}</span>
+            <span style="font-size:13px;font-weight:500;color:{{ cell.labelColor }};line-height:1.2;">{{ cell.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p style="font-size:13px;color:#9594A8;margin:20px 0 0;">Pre-filled answers carry their trust tier with them — a validated answer stays validated for the next customer until monitoring says otherwise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MONITORING ============ -->
+<section data-screen-label="Monitoring" style="background:#fff;border-bottom:0.5px solid #E4E3EE;">
+  <div style="max-width:1180px;margin:0 auto;padding:92px 28px;">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#534AB7"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#534AB7;">Monitoring</span>
+    </div>
+    <h2 style="font-size:30px;font-weight:600;letter-spacing:-0.6px;margin:0 0 10px;max-width:26ch;">Stays true — not point-in-time.</h2>
+    <p style="font-size:16px;color:#5A5A6E;max-width:60ch;margin:0 0 40px;">Read-only monitoring re-checks validated answers over time and flags drift the moment it appears.</p>
+
+    <div style="background:#F4F3FA;border-radius:18px;padding:34px 34px 30px;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;position:relative;">
+        <div style="position:absolute;top:13px;left:7%;right:7%;height:2px;background:#D8D6E6;z-index:0;"></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:1;">
+          <span style="width:26px;height:26px;border-radius:50%;background:#0F6E56;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;">✓</span>
+          <div style="text-align:center;"><div style="font-size:13.5px;font-weight:600;">Cleared</div><div style="font-size:12px;color:#9594A8;margin-top:2px;">Day 0 · validated</div></div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:1;">
+          <span style="width:26px;height:26px;border-radius:50%;background:#0F6E56;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;">✓</span>
+          <div style="text-align:center;"><div style="font-size:13.5px;font-weight:600;">Re-check</div><div style="font-size:12px;color:#9594A8;margin-top:2px;">Day 30 · still valid</div></div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:1;">
+          <span style="width:26px;height:26px;border-radius:50%;background:#0F6E56;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;">✓</span>
+          <div style="text-align:center;"><div style="font-size:13.5px;font-weight:600;">Re-check</div><div style="font-size:12px;color:#9594A8;margin-top:2px;">Day 60 · still valid</div></div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:1;">
+          <span style="width:26px;height:26px;border-radius:50%;background:{{ lastColor }};display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;transition:background .3s;">{{ lastMark }}</span>
+          <div style="text-align:center;"><div style="font-size:13.5px;font-weight:600;color:{{ lastColor }};transition:color .3s;">{{ lastLabel }}</div><div style="font-size:12px;color:#9594A8;margin-top:2px;">Day 90</div></div>
+        </div>
+      </div>
+
+      <sc-if value="{{ driftOn }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:28px;display:flex;gap:14px;align-items:flex-start;background:#FAECE7;border-radius:12px;padding:16px 20px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#993C1D;margin-top:6px;flex-shrink:0;"></span>
+          <p style="font-size:14px;color:#993C1D;margin:0;line-height:1.45;"><b style="font-weight:600;">Drift detected.</b> The vendor's sub-processor list changed. The affected answer is auto-flagged and the engagement reopens — just that item, back to the vendor. No one re-does the whole pack.</p>
+        </div>
+      </sc-if>
+
+      <div style="margin-top:26px;display:flex;justify-content:center;">
+        <button onClick="{{ onToggleDrift }}" style="font-size:14px;font-weight:500;color:#534AB7;background:#fff;border:0.5px solid #D8D6E6;padding:10px 20px;border-radius:10px;cursor:pointer;font-family:inherit;" style-hover="border-color:#534AB7;">{{ driftLabel }}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEPARATION ============ -->
+<section data-screen-label="Separation" style="background:#FBFBFD;border-bottom:0.5px solid #E4E3EE;">
+  <div style="max-width:1180px;margin:0 auto;padding:92px 28px;">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:16px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#26215C"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#FBFBFD" stroke-width="2.6" stroke-linecap="round"></line></svg>
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;color:#26215C;">Built for separation</span>
+    </div>
+    <h2 style="font-size:30px;font-weight:600;letter-spacing:-0.6px;margin:0 0 10px;max-width:26ch;">Sensitive answers never reach the wrong desk.</h2>
+    <p style="font-size:16px;color:#5A5A6E;max-width:64ch;margin:0 0 38px;">A vendor's security detail never lands on a commercial or legal desk that has no reason to see it. A reviewer judges one vendor without the rest of your pipeline in view. And the vendor never sees inside your organisation at all. Each person gets exactly the slice their work needs — less exposure, fewer mistakes, a cleaner trail.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;">
+      <div style="background:#fff;border:0.5px solid #D8D6E6;border-radius:12px;padding:18px 16px;border-top:3px solid #26215C;">
+        <div style="font-size:14.5px;font-weight:600;margin-bottom:12px;">Author</div>
+        <div style="font-size:11.5px;color:#0F6E56;font-weight:600;margin-bottom:3px;">Sees</div>
+        <p style="font-size:12.5px;color:#5A5A6E;margin:0 0 12px;line-height:1.4;">The standards and the bar.</p>
+        <div style="font-size:11.5px;color:#993C1D;font-weight:600;margin-bottom:3px;">Never</div>
+        <p style="font-size:12.5px;color:#9594A8;margin:0;line-height:1.4;">A single vendor's evidence.</p>
+      </div>
+      <div style="background:#fff;border:0.5px solid #D8D6E6;border-radius:12px;padding:18px 16px;border-top:3px solid #3A36E0;">
+        <div style="font-size:14.5px;font-weight:600;margin-bottom:12px;">Requester</div>
+        <div style="font-size:11.5px;color:#0F6E56;font-weight:600;margin-bottom:3px;">Sees</div>
+        <p style="font-size:12.5px;color:#5A5A6E;margin:0 0 12px;line-height:1.4;">Who was sent a pack, and when.</p>
+        <div style="font-size:11.5px;color:#993C1D;font-weight:600;margin-bottom:3px;">Never</div>
+        <p style="font-size:12.5px;color:#9594A8;margin:0;line-height:1.4;">The security answers themselves.</p>
+      </div>
+      <div style="background:#fff;border:0.5px solid #D8D6E6;border-radius:12px;padding:18px 16px;border-top:3px solid #7F77DD;">
+        <div style="font-size:14.5px;font-weight:600;margin-bottom:12px;">Shepherd</div>
+        <div style="font-size:11.5px;color:#0F6E56;font-weight:600;margin-bottom:3px;">Sees</div>
+        <p style="font-size:12.5px;color:#5A5A6E;margin:0 0 12px;line-height:1.4;">Status across every vendor.</p>
+        <div style="font-size:11.5px;color:#993C1D;font-weight:600;margin-bottom:3px;">Never</div>
+        <p style="font-size:12.5px;color:#9594A8;margin:0;line-height:1.4;">A reviewer's private reasoning.</p>
+      </div>
+      <div style="background:#fff;border:0.5px solid #D8D6E6;border-radius:12px;padding:18px 16px;border-top:3px solid #534AB7;">
+        <div style="font-size:14.5px;font-weight:600;margin-bottom:12px;">Reviewer</div>
+        <div style="font-size:11.5px;color:#0F6E56;font-weight:600;margin-bottom:3px;">Sees</div>
+        <p style="font-size:12.5px;color:#5A5A6E;margin:0 0 12px;line-height:1.4;">One vendor, in depth, with tiers.</p>
+        <div style="font-size:11.5px;color:#993C1D;font-weight:600;margin-bottom:3px;">Never</div>
+        <p style="font-size:12.5px;color:#9594A8;margin:0;line-height:1.4;">The rest of the pipeline.</p>
+      </div>
+      <div style="background:#0F6E56;border-radius:12px;padding:18px 16px;border-top:3px solid #0B4F3E;">
+        <div style="font-size:14.5px;font-weight:600;margin-bottom:12px;color:#fff;">Vendor</div>
+        <div style="font-size:11.5px;color:#9FE1CB;font-weight:600;margin-bottom:3px;">Sees</div>
+        <p style="font-size:12.5px;color:#D4F0E6;margin:0 0 12px;line-height:1.4;">Only their own task.</p>
+        <div style="font-size:11.5px;color:#9FE1CB;font-weight:600;margin-bottom:3px;">Never</div>
+        <p style="font-size:12.5px;color:#86C7B2;margin:0;line-height:1.4;">The console — there isn't one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGOS ============ -->
+<section data-screen-label="Logos" style="background:#FBFBFD;border-bottom:0.5px solid #E4E3EE;">
+  <div style="max-width:1180px;margin:0 auto;padding:60px 28px;text-align:center;">
+    <p style="font-size:13.5px;color:#9594A8;margin:0 0 28px;letter-spacing:.02em;">Built for security and procurement teams who answer to auditors</p>
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;">
+      <div style="width:128px;height:38px;border-radius:7px;background:repeating-linear-gradient(135deg,#EFEFF5 0 7px,#F7F7FB 7px 14px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#B6B5C6;">logo</span></div>
+      <div style="width:128px;height:38px;border-radius:7px;background:repeating-linear-gradient(135deg,#EFEFF5 0 7px,#F7F7FB 7px 14px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#B6B5C6;">logo</span></div>
+      <div style="width:128px;height:38px;border-radius:7px;background:repeating-linear-gradient(135deg,#EFEFF5 0 7px,#F7F7FB 7px 14px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#B6B5C6;">logo</span></div>
+      <div style="width:128px;height:38px;border-radius:7px;background:repeating-linear-gradient(135deg,#EFEFF5 0 7px,#F7F7FB 7px 14px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#B6B5C6;">logo</span></div>
+      <div style="width:128px;height:38px;border-radius:7px;background:repeating-linear-gradient(135deg,#EFEFF5 0 7px,#F7F7FB 7px 14px);display:flex;align-items:center;justify-content:center;"><span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#B6B5C6;">logo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section id="pricing" data-screen-label="Final CTA" style="background:#14132E;color:#fff;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(58,54,224,0.22),transparent 60%);pointer-events:none;"></div>
+  <div style="max-width:1180px;margin:0 auto;padding:104px 28px;text-align:center;position:relative;">
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" style="margin-bottom:26px;"><circle cx="12" cy="12" r="7" fill="#3A36E0"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#14132E" stroke-width="2.6" stroke-linecap="round"></line></svg>
+    <h2 style="font-size:42px;font-weight:600;letter-spacing:-1.2px;margin:0 0 16px;">Start sending.</h2>
+    <p style="font-size:18px;color:#C7C6E8;max-width:50ch;margin:0 auto 34px;line-height:1.5;">The due-diligence trail you can defend — and it gets faster every time it's used.</p>
+    <div style="display:flex;gap:13px;justify-content:center;flex-wrap:wrap;">
+      <a href="#" style="font-size:15.5px;font-weight:500;color:#fff;background:#3A36E0;padding:14px 28px;border-radius:11px;text-decoration:none;box-shadow:0 6px 22px rgba(58,54,224,0.4);" style-hover="background:#2F2BC4;transform:translateY(-1px);">Start sending</a>
+      <a href="#" style="font-size:15.5px;font-weight:500;color:#fff;background:transparent;border:0.5px solid rgba(255,255,255,0.28);padding:14px 26px;border-radius:11px;text-decoration:none;" style-hover="background:rgba(255,255,255,0.06);">Talk to us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="background:#100E24;color:#fff;">
+  <div style="max-width:1180px;margin:0 auto;padding:56px 28px 40px;display:flex;gap:48px;flex-wrap:wrap;justify-content:space-between;">
+    <div style="max-width:300px;">
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="7" fill="#3A36E0"></circle><line x1="6.5" y1="16" x2="17.5" y2="8" stroke="#100E24" stroke-width="2.6" stroke-linecap="round"></line></svg>
+        <span style="font-weight:700;letter-spacing:1.6px;font-size:13px;">CLEAR PASSAGE</span>
+      </div>
+      <p style="font-size:13.5px;color:#8C8AB8;margin:0;line-height:1.5;">Vendor security checks that get faster every time, and never go stale.</p>
+    </div>
+    <div style="display:flex;gap:56px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#56557A;font-weight:600;margin-bottom:14px;">Product</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#auditor" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Environment auditor</a>
+          <a href="#network" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Network effect</a>
+          <a href="#" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Monitoring</a>
+          <a href="#pricing" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Pricing</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#56557A;font-weight:600;margin-bottom:14px;">Trust</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Three tiers of truth</a>
+          <a href="#" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Security</a>
+          <a href="#" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Privacy</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#56557A;font-weight:600;margin-bottom:14px;">Company</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="#" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Story</a>
+          <a href="#" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Contact</a>
+          <a href="#" style="font-size:14px;color:#C7C6E8;text-decoration:none;" style-hover="color:#fff;">Sign in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:0.5px solid rgba(255,255,255,0.08);">
+    <div style="max-width:1180px;margin:0 auto;padding:20px 28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <span style="font-size:12.5px;color:#56557A;">© 2026 Clear Passage</span>
+      <span style="font-size:12.5px;color:#56557A;">Attested · validated · monitored</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { phase: 0, auditor: 'attested', lit: 0, net: 'first', drift: false, scrolled: false };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const s = window.scrollY > 36;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+    this.clearAuditTimers();
+  }
+  clearAuditTimers() { (this._timers || []).forEach(clearTimeout); this._timers = []; }
+  runAuditor() {
+    if (this.state.auditor === 'validating') return;
+    this.clearAuditTimers();
+    this.setState({ auditor: 'validating', lit: 0 });
+    this._timers = [
+      setTimeout(() => this.setState({ lit: 1 }), 360),
+      setTimeout(() => this.setState({ lit: 2 }), 720),
+      setTimeout(() => this.setState({ lit: 3 }), 1080),
+      setTimeout(() => this.setState({ auditor: 'validated' }), 1620),
+    ];
+  }
+  resetAuditor() { this.clearAuditTimers(); this.setState({ auditor: 'attested', lit: 0 }); }
+  auditStep(i) {
+    this.clearAuditTimers();
+    if (i === 0) this.setState({ auditor: 'attested', lit: 0 });
+    else if (i === 1) this.setState({ auditor: 'validating', lit: 3 });
+    else this.setState({ auditor: 'validated', lit: 3 });
+  }
+
+  renderVals() {
+    const C = { indigo:'#3A36E0', purpleD:'#26215C', purpleM:'#534AB7', purpleL:'#7F77DD', teal:'#0F6E56', line2:'#D8D6E6', tx3:'#9594A8' };
+    const phases = [
+      { n:'01', name:'Author',   held:'policy author',    color:C.purpleD, dark:false, short:'Set the bar once', feel:'"Set our bar once, walk away."', detail:'Define vendor categories, assign standards \u2014 NIST, ISO, or your own \u2014 and tailor the questions. From then on, packs self-assemble.' },
+      { n:'02', name:'Request',  held:'requester',        color:C.indigo,  dark:false, short:'Send at signing',  feel:'"Done before I forget \u2014 not three months late."', detail:'Pick the vendor and category; the pack auto-builds; the link goes out in about thirty seconds, at the point of signing.' },
+      { n:'03', name:'Shepherd', held:'engagement owner', color:C.purpleL, dark:true,  short:'Hold the loop',     feel:'"I can see exactly where this stands."', detail:'A status board across every vendor. The chase is automated; every objection is held until it resolves. Nothing stalls in an inbox.' },
+      { n:'04', name:'Review',   held:'reviewer',         color:C.purpleM, dark:false, short:'Judge one vendor',  feel:'"My call is recorded \u2014 defensible if asked."', detail:'Each answer sits beside its control and its trust tier. Approve, ask, or object \u2014 every decision logged with its reasoning.' },
+      { n:'05', name:'Vendor',   held:'the vendor',       color:C.teal,    dark:false, short:'Faster each time',  feel:'"Most of this is already done."', detail:'No console, no login. Validated answers pre-fill from past engagements \u2014 only the genuinely new gaps remain.' },
+    ];
+    const a = this.state.phase;
+    const nodes = phases.map((p, i) => ({
+      n: p.n, name: p.name, short: p.short,
+      pulseDelay: (i * 0.16) + 's',
+      onClick: () => this.setState({ phase: i }),
+      nodeBg: i === a ? p.color : '#FFFFFF',
+      nodeBorder: i === a ? p.color : (i < a ? p.color : C.line2),
+      nodeColor: i === a ? (p.dark ? C.purpleD : '#FFFFFF') : (i < a ? p.color : C.tx3),
+      labelColor: i === a ? '#1A1A1A' : '#5A5A6E',
+    }));
+    const ap = phases[a];
+
+    const au = this.state.auditor;
+    const badge = au === 'validated' ? { t:'Validated', bg:'#E1F5EE', fg:C.teal, dot:C.teal }
+                : au === 'validating' ? { t:'Checking\u2026', bg:'#ECEBFB', fg:C.indigo, dot:C.indigo }
+                : { t:'Attested', bg:'#FAEEDA', fg:'#854F0B', dot:'#854F0B' };
+    const connLit = au === 'validating' || au === 'validated';
+    const runLabel = au === 'validating' ? 'Reading environment\u2026' : au === 'validated' ? 'Re-run check' : 'Run read-only check';
+    const aStep = au === 'validated' ? 2 : au === 'validating' ? 1 : 0;
+    const sMeta = [{ label: 'The claim', color: '#D9A441' }, { label: 'The check', color: '#7F77DD' }, { label: 'The result', color: '#2FA784' }];
+    const auditStepNodes = sMeta.map((s, i) => ({
+      label: s.label, num: String(i + 1),
+      pulseDelay: (i * 0.16) + 's',
+      onClick: () => this.auditStep(i),
+      dotBg: i <= aStep ? s.color : 'transparent',
+      dotBorder: i <= aStep ? s.color : 'rgba(255,255,255,0.22)',
+      dotColor: i <= aStep ? '#14132E' : 'rgba(255,255,255,0.45)',
+      labelColor: i === aStep ? '#FFFFFF' : 'rgba(255,255,255,0.4)',
+    }));
+    const lit = this.state.lit || 0;
+    const connList = ['Google', 'AWS', 'Microsoft'].map((name, i) => {
+      const on = lit > i;
+      return { name,
+        bg: on ? 'rgba(15,110,86,0.18)' : 'rgba(255,255,255,0.04)',
+        border: on ? '#2FA784' : 'rgba(255,255,255,0.14)',
+        color: on ? '#6FD3B5' : '#8C8AB8',
+        dot: on ? '#2FA784' : 'rgba(255,255,255,0.25)' };
+    });
+
+    const items = ['Access control','Encryption at rest','Encryption in transit','Incident response','Vulnerability mgmt','Backup & recovery','Data residency','Logging & audit','Sub-processors','Business continuity','SSO / SAML','Penetration test'];
+    const ret = this.state.net === 'returning';
+    const doneN = ret ? 9 : 2;
+    const pack = items.map((label, i) => {
+      const done = i < doneN;
+      return { label, done,
+        bg: done ? '#E1F5EE' : '#FFFFFF',
+        border: done ? '#B7E2D3' : C.line2,
+        mark: done ? '\u2713' : '',
+        markColor: done ? C.teal : C.tx3,
+        labelColor: done ? C.teal : '#5A5A6E' };
+    });
+
+    return {
+      scrolledBg: this.state.scrolled ? 'rgba(251,251,253,0.85)' : 'rgba(251,251,253,0)',
+      nodes,
+      progressFill: (a / 4 * 80) + '%',
+      progressColor: ap.color,
+      activeN: ap.n, activeHeld: ap.held, activeName: ap.name, activeDetail: ap.detail, activeFeel: ap.feel, activeColor: ap.color,
+      badgeText: badge.t, badgeBg: badge.bg, badgeFg: badge.fg, badgeDot: badge.dot,
+      connBorder: connLit ? C.teal : C.line2, connBg: connLit ? '#E1F5EE' : '#FFFFFF', connColor: connLit ? C.teal : '#5A5A6E',
+      runLabel, onRun: () => this.runAuditor(), onReset: () => this.resetAuditor(),
+      isValidating: au === 'validating', isValidated: au === 'validated', isAttested: au === 'attested',
+      auditStepNodes, connList, showStartOver: au === 'validated',
+      auditProgress: (aStep / 2 * 66.6) + '%',
+      panelOp0: aStep === 0 ? '1' : '0', panelPe0: aStep === 0 ? 'auto' : 'none',
+      panelOp1: aStep === 1 ? '1' : '0', panelPe1: aStep === 1 ? 'auto' : 'none',
+      panelOp2: aStep === 2 ? '1' : '0', panelPe2: aStep === 2 ? 'auto' : 'none',
+      pack, doneN,
+      onFirst: () => this.setState({ net: 'first' }), onReturning: () => this.setState({ net: 'returning' }),
+      firstBg: !ret ? '#14132E' : '#FFFFFF', firstColor: !ret ? '#FFFFFF' : '#5A5A6E',
+      retBg: ret ? C.teal : '#FFFFFF', retColor: ret ? '#FFFFFF' : '#5A5A6E',
+      netHeadline: ret ? 'Returning vendor \u2014 most of the pack is already validated.' : 'First-time vendor \u2014 answered once, banked forever.',
+      driftOn: this.state.drift, onToggleDrift: () => this.setState(s => ({ drift: !s.drift })),
+      driftLabel: this.state.drift ? 'Reset' : 'Simulate drift',
+      lastColor: this.state.drift ? '#993C1D' : C.teal,
+      lastMark: this.state.drift ? '!' : '\u2713',
+      lastLabel: this.state.drift ? 'Drift flagged' : 'Still valid',
+    };
+  }
+}
+</script>
+</body>
+</html>
